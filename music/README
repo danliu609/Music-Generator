@@ -1,0 +1,57 @@
+@date Nov 30, 2016
+@author cyan4
+
+[Usage]
+1. data preprocess:
+download the Nottingham dataset and unzip it into the data folder;
+run python yy_pickle_util.py
+	have a look at the __main__ function of that file before running it;
+	those commented-off code are just for testing; you don’t need them;
+
+2. train:
+run python yy_train.py
+	have a look at the __main__ function of that file before running it;
+to train a model:
+	specify a run_folder and call train();
+	if the folder already exist, will add ”_0” to the folder name;
+	there is a DefaultConfig class in that file,
+	you can change the model config there. e.g. change the num_layers;
+	it will only save the model when it perform well on the validation data;
+	you can do ctrl+Z to stop training at anytime;
+	after training, you can check the .log file in the run_folder;
+to test a model:
+	specify the model path and call test();
+	the model_path is “<the run_folder>/yy_model”
+
+3. generate:
+run python yy_generate.py
+	have a look at the __main__ function of that file before running it;
+you need to specify the model_path, output_filename, melody_filename;
+to generate based on an existing midi:
+	call melody_fn = prepare_melody_from_midi("input.mid", tracki=0)
+	the first argument is the original midi filename;
+	the second argument is the track id of the melody track; for Nottingham, it is 1;
+	it will return the filename of a well-formatted midi file based on the input;
+to generate based on vocal:
+	if you have Melodyne on your machine, call melody_fn = prepare_melody_from_vocal()
+then call generate()
+
+
+
+
+
+	
+
+[TODO]
+1. generate;
+    generate 3 diff style together;
+    instrument combo;
+
+2. tensorflow init; check;
+3. validation; anti overfit;
+4. try:
+    non-onehot representation; melody;   
+    conv;  music:2d; img:2d;
+5. +dtype int:
+    harmony_twohot = np.zeros(shape, dtype=np.int32)
+
